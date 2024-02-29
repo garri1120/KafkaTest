@@ -1,0 +1,26 @@
+server:
+  port: 9090
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      topics:
+        approve-credit-topic: "approve-credit-test-kafka"
+
+
+    consumer:
+      bootstrap-servers: localhost:29092
+      group-id: credit-group
+      enable-auto-commit: true
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.json.trusted.packages: an.popov.PersonDtoForKafka.dto
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+      topics:
+        approve-credit-topic: "approve-credit-test-kafka"
+      enabled: true
