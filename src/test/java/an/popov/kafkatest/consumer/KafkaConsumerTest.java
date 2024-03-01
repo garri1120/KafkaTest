@@ -28,12 +28,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Slf4j
 //@SpringBootTest(classes = {KafkaConsumer.class, SomethingServiceImpl.class})
+//@ContextConfiguration(classes = {KafkaContainerTest.class, KafkaProducerTestConfig1.class})
+@Slf4j
 @SpringBootTest(classes = {KafkaTestApplication.class})
 @ContextConfiguration(classes = {KafkaContainerTest.class})
-
-//@ContextConfiguration(classes = {KafkaContainerTest.class, KafkaProducerTestConfig1.class})
 @Testcontainers(disabledWithoutDocker = true)
 @TestPropertySource(locations = "classpath:application.yml")
 class KafkaConsumerTest {
@@ -76,3 +75,5 @@ class KafkaConsumerTest {
 
   }
 }
+
+
