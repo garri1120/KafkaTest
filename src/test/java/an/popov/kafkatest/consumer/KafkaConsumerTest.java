@@ -5,13 +5,10 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
 import an.popov.PersonDtoForKafka.dto.PersonDto;
-
-import an.popov.kafkatest.KafkaTestApplication;
-
 import an.popov.kafkatest.container.KafkaContainerTest;
 import an.popov.kafkatest.service.SomethingService;
+import an.popov.kafkatest.service.impl.SomethingServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.Assertions;
@@ -20,6 +17,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -28,13 +26,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-//@SpringBootTest(classes = {KafkaConsumer.class, SomethingServiceImpl.class})
-//@ContextConfiguration(classes = {KafkaContainerTest.class, KafkaProducerTestConfig1.class})
 @Slf4j
-@SpringBootTest(classes = {KafkaTestApplication.class})
 @ContextConfiguration(classes = {KafkaContainerTest.class})
 @Testcontainers(disabledWithoutDocker = true)
 @TestPropertySource(locations = "classpath:application.yml")
+@SpringBootTest(classes = {KafkaConsumer.class, SomethingServiceImpl.class, KafkaAutoConfiguration.class})
 class KafkaConsumerTest {
 
   @Value("${spring.kafka.consumer.topics.approve-credit-topic}")
