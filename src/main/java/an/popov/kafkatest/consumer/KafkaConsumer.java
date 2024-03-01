@@ -21,7 +21,7 @@ public class KafkaConsumer {
       groupId = "${spring.kafka.consumer.group-id}",
       autoStartup = "${spring.kafka.consumer.enabled}"
   )
-  public void getPersonDtoFromKafkaCustomDeserializer(ConsumerRecord<String, PersonDto> consumerRecord) {
+  public void getPersonDtoFromKafka(ConsumerRecord<String, PersonDto> consumerRecord) {
     PersonDto personDto = consumerRecord.value();
     log.info("++++++++++++++ KafkaConsumer. Успешно получено сообщение из кафки. Topic = [{}], message = {}", consumerRecord.topic(), personDto);
     somethingService.save(personDto);
